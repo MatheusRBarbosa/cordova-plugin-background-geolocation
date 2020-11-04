@@ -15,8 +15,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.marianhello.bgloc.BackgroundGeolocationFacade;
 import com.marianhello.bgloc.Config;
