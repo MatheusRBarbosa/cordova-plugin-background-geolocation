@@ -15,6 +15,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+
 import com.marianhello.bgloc.BackgroundGeolocationFacade;
 import com.marianhello.bgloc.Config;
 import com.marianhello.bgloc.PluginDelegate;
@@ -70,6 +73,10 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
     public static final String ACTION_END_TASK = "endTask";
     public static final String ACTION_REGISTER_HEADLESS_TASK = "registerHeadlessTask";
     public static final String ACTION_FORCE_SYNC = "forceSync";
+    
+    public static final String ACTION_SHOW_APP_LOCATIONS_SETTINGS = "showAppLocationSettings";
+
+    private static final int REQUEST_CODE_LOCATION_BACKGROUND = 1545;
 
     private BackgroundGeolocationFacade facade;
 
@@ -349,6 +356,16 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
             logger.debug("Forced location sync requested");
             facade.forceSync();
             return true;
+        } else if (ACTION_SHOW_APP_LOCATIONS_SETTINGS.equals(action)) {
+            boolean hasBackgroundLocationPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
+
+            if (!hasBackgroundLocationPermission) {
+                ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_BACKGROUND_LOCATION, REQUEST_CODE_LOCATION_BACKGROUND });
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         return false;

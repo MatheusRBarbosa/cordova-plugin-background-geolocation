@@ -565,6 +565,13 @@ export interface BackgroundGeolocationPlugin {
   showLocationSettings(): void;
 
   /**
+   * Show system location dialog.
+   * 
+   * Platform: Android
+   */
+  showAppLocationSettings(): void;
+
+  /**
    * Return all stored locations.
    * Useful for initial rendering of user location on a map just after application launch.
    *

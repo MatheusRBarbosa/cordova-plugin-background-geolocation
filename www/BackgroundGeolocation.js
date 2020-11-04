@@ -150,6 +150,13 @@ var BackgroundGeolocation = {
       'showLocationSettings', []);
   },
 
+  showAppLocationSettings: function () {
+    exec(emptyFnc,
+      emptyFnc,
+      'BackgroundGeolocation',
+      'showAppLocationSettings', []);
+  },
+
   getLocations: function (success, failure) {
     assertFnc(success, [TAG, '#getLocations requires a success callback']);
     exec(success,
