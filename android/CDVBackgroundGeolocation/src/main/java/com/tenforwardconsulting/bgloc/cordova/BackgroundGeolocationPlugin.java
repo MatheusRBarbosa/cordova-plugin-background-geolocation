@@ -15,6 +15,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import android.content.pm.PackageManager;
+
 import com.marianhello.bgloc.BackgroundGeolocationFacade;
 import com.marianhello.bgloc.Config;
 import com.marianhello.bgloc.PluginDelegate;
