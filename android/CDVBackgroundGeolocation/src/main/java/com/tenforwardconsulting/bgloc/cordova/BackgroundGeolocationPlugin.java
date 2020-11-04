@@ -357,10 +357,10 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
             facade.forceSync();
             return true;
         } else if (ACTION_SHOW_APP_LOCATIONS_SETTINGS.equals(action)) {
-            boolean hasBackgroundLocationPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            boolean hasBackgroundLocationPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
             if (!hasBackgroundLocationPermission) {
-                ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_BACKGROUND_LOCATION, REQUEST_CODE_LOCATION_BACKGROUND });
+                ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_BACKGROUND_LOCATION }, REQUEST_CODE_LOCATION_BACKGROUND);
                 return true;
             }
             else {
