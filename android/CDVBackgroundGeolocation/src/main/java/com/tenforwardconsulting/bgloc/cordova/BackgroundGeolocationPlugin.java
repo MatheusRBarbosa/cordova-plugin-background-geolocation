@@ -355,7 +355,7 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
             facade.forceSync();
             return true;
         } else if (ACTION_SHOW_APP_LOCATIONS_SETTINGS.equals(action)) {
-            /*boolean hasBackgroundLocationPermission = this.getActivity().checkSelfPermission(this, this.getApplication().Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            boolean hasBackgroundLocationPermission = this.getActivity().checkSelfPermission(this, this.getApplication().Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
             if (!hasBackgroundLocationPermission) {
                 this.getActivity().requestPermissions(this, new String[] { this.getApplication().Manifest.permission.ACCESS_BACKGROUND_LOCATION }, REQUEST_CODE_LOCATION_BACKGROUND);
@@ -363,9 +363,7 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
             }
             else {
                 return false;
-            }*/
-
-            this.sendEvent("bgLocationIsEnabled");
+            }
         }
 
         return false;
