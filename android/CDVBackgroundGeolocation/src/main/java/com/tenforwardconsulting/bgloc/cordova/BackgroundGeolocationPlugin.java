@@ -74,7 +74,6 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
     public static final String ACTION_FORCE_SYNC = "forceSync";
     
     public static final String ACTION_SHOW_APP_LOCATIONS_SETTINGS = "showAppLocationSettings";
-
     private static final int REQUEST_CODE_LOCATION_BACKGROUND = 1545;
 
     private BackgroundGeolocationFacade facade;
@@ -356,10 +355,10 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
             facade.forceSync();
             return true;
         } else if (ACTION_SHOW_APP_LOCATIONS_SETTINGS.equals(action)) {
-            boolean hasBackgroundLocationPermission = this.getActivity().checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            boolean hasBackgroundLocationPermission = this.getActivity().checkSelfPermission(this, this.getApplication().Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
             if (!hasBackgroundLocationPermission) {
-                this.getActivity().requestPermissions(this, new String[] { Manifest.permission.ACCESS_BACKGROUND_LOCATION }, REQUEST_CODE_LOCATION_BACKGROUND);
+                this.getActivity().requestPermissions(this, new String[] { this.getApplication().Manifest.permission.ACCESS_BACKGROUND_LOCATION }, REQUEST_CODE_LOCATION_BACKGROUND);
                 return true;
             }
             else {
