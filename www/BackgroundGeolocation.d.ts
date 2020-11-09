@@ -565,11 +565,14 @@ export interface BackgroundGeolocationPlugin {
   showLocationSettings(): void;
 
   /**
-   * Show system location dialog.
+   * Checks backgroundgeolocation has enabled for API 29+
    * 
    * Platform: Android
    */
-  showAppLocationSettings(): void;
+  hasLocationPermissionAllowed(
+    sucess: any,
+    fail?: any
+  ): void;
 
   /**
    * Return all stored locations.

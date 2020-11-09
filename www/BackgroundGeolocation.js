@@ -150,11 +150,11 @@ var BackgroundGeolocation = {
       'showLocationSettings', []);
   },
 
-  showAppLocationSettings: function () {
-    exec(emptyFnc,
-      emptyFnc,
+  hasLocationPermissionAllowed: function (success, failure) {
+    exec(success || emptyFnc,
+      failure || emptyFnc,
       'BackgroundGeolocation',
-      'showAppLocationSettings', []);
+      'hasLocationPermissionAllowed', []);
   },
 
   getLocations: function (success, failure) {

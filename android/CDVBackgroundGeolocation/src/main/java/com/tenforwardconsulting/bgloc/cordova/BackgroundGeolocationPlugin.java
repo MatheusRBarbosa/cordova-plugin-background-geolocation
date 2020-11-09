@@ -15,7 +15,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import android.content.pm.PackageManager;
+import android.os.Build;
 
 import com.marianhello.bgloc.BackgroundGeolocationFacade;
 import com.marianhello.bgloc.Config;
@@ -73,8 +73,7 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
     public static final String ACTION_REGISTER_HEADLESS_TASK = "registerHeadlessTask";
     public static final String ACTION_FORCE_SYNC = "forceSync";
     
-    public static final String ACTION_SHOW_APP_LOCATIONS_SETTINGS = "showAppLocationSettings";
-    private static final int REQUEST_CODE_LOCATION_BACKGROUND = 1545;
+    public static final String HAS_LOCATION_PERMISSION_ALLOWED = "hasLocationPermissionAllowed";
 
     private BackgroundGeolocationFacade facade;
 
@@ -355,14 +354,13 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
             facade.forceSync();
             return true;
         } else if (ACTION_SHOW_APP_LOCATIONS_SETTINGS.equals(action)) {
-            boolean hasBackgroundLocationPermission = this.getActivity().checkSelfPermission(this, this.getApplication().Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
-
-            if (!hasBackgroundLocationPermission) {
-                this.getActivity().requestPermissions(this, new String[] { this.getApplication().Manifest.permission.ACCESS_BACKGROUND_LOCATION }, REQUEST_CODE_LOCATION_BACKGROUND);
-                return true;
-            }
-            else {
-                return false;
+            if(Build.VERSION.SDK_INT >= 29) {
+                try {
+                    boolean hasBackgroundLocationPermission = facade.hasBackgroundLocationPermission();
+                    callbackContext.success(permissionResult(hasBackgroundLocationPermission));
+                } catch (Exception e) {
+                    callbackContext.sendPluginResult(ErrorPluginResult.from("Checking location permission failed", e, PluginException.SERVICE_ERROR));
+                }
             }
         }
 
@@ -530,6 +528,12 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin implements Plugin
         json.put("locationServicesEnabled", facade.locationServicesEnabled());
         json.put("authorization", facade.getAuthorizationStatus());
 
+        return json;
+    }
+
+    private JSONObject permissionResult(boolean hasPermission) throws JSONException, PluginException {
+        JSONObject json = new JSONObject();
+        json.put("hasPermission", hasPermission);
         return json;
     }
 
